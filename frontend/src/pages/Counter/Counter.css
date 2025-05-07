@@ -1,0 +1,90 @@
+.counter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 70vw;
+    font-family: 'Tiro Devanagari Hindi', sans-serif;
+}
+
+.counter-image {
+    position: absolute;
+    top: -34px;
+}
+
+.counter-card {
+    background-color: #BDB199;
+    border-radius: 10px;
+    height: 35%;
+    width: 70%;
+    color: #48351C;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.bag-count {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bag-count h1 {
+    font-weight: 400px;
+    font-size: 128px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin: 0;
+}
+
+.bag-count p {
+    font-weight: 400px;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin: 0
+}
+
+.counter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter-increments {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.counter-button {
+    background-color: #BDB199;
+    color: #48351C;
+    padding: 10px;
+    border-radius: 10px;
+    height: 60px;
+    width: 60px;
+    font-weight: bold;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset-button {
+    background-color: #BDB199;
+    color: #48351C;
+    font-weight: 400px;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 1;
+    height: 60px;
+    width: 162px;
+}
