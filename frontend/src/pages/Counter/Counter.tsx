@@ -1,22 +1,25 @@
-import { useState } from 'react'
-import './Counter.css'
+import { useState } from "react";
+import "./Counter.css";
 
 export default function Counter() {
-  const [bags, setBags] = useState(0)
+  const [bags, setBags] = useState(0);
 
-  const increment = () => setBags(bags + 1)
+  const increment = () => setBags(bags + 1);
 
   const decrement = () => {
-    if (bags > 0) setBags(bags - 1)
-
+    if (bags > 0) setBags(bags - 1);
   };
 
-  const reset = () => setBags(0)
+  const reset = () => setBags(0);
 
   return (
     <div className="counter-container">
       <div className="counter-wrapper">
-        <img src="/cowboyanteater.png" alt="cowboy anteater image" className="counter-image"></img>
+        <img
+          src="/cowboyanteater.png"
+          alt="cowboy anteater image"
+          className="counter-image"
+        ></img>
         <div className="counter-card">
           <div className="bag-count">
             <h1>{bags}</h1>
@@ -27,14 +30,26 @@ export default function Counter() {
       <div className="counter-controls">
         <div className="counter-increments">
           <button onClick={decrement} className="counter-button">
-            <img src="/decrement.svg" alt="decrement" width="37" height="6"></img>
+            <img
+              src="/decrement.svg"
+              alt="decrement"
+              width="37"
+              height="6"
+            ></img>
           </button>
           <button onClick={increment} className="counter-button">
-          <img src="/increment.svg" alt="decrement" width="34" height="34"></img>
+            <img
+              src="/increment.svg"
+              alt="decrement"
+              width="34"
+              height="34"
+            ></img>
           </button>
         </div>
-        <button onClick={reset} className="reset-button">RESET</button>
+        <button onClick={reset} className="reset-button">
+          RESET
+        </button>
       </div>
     </div>
-    )
-};
+  );
+}
