@@ -15,11 +15,13 @@ export default function Counter() {
 
   return (
     <div className="counter-container">
-    <img src="/cowboyanteater.png" alt="cowboy anteater image" className="counter-image"></img>
-      <div className="counter-card">
-        <div className="bag-count">
-          <h1>{bags}</h1>
-          <p>Number of Bags</p>
+      <div className="counter-wrapper">
+        <img src="/cowboyanteater.png" alt="cowboy anteater image" className="counter-image"></img>
+        <div className="counter-card">
+          <div className="bag-count">
+            <h1>{bags}</h1>
+            <p>Number of Bags</p>
+          </div>
         </div>
       </div>
       <div className="counter-controls">
