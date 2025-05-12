@@ -1,18 +1,18 @@
 .navbar {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 1.25rem;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 1.25rem;
+  right: 1.25rem;
 }
 
 .nav-button {
   background-color: #bdb199;
   color: #48351c;
   font-family: "Tiro Devanagari Hindi", sans-serif;
-  font-size: 24px;
-  padding: 12px 24px;
-  border-radius: 12px;
+  font-size: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
   font-weight: 400;
 }
