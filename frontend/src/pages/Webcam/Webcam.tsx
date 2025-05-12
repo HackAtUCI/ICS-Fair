@@ -6,6 +6,7 @@ export default function Webcam() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
 
+
   const getVideo = () => {
     navigator.mediaDevices.getUserMedia({
       video: {
@@ -15,8 +16,10 @@ export default function Webcam() {
     })
     .then((stream) => {
       let video = videoRef.current;
-      video.srcObject = stream;
-      video.play();
+      if (video) {
+        video.srcObject = stream;
+        video.play();
+      }
     })
     .catch((err) => {
       console.error(err);

@@ -8,6 +8,7 @@
 }
   
 .header {
+    margin-top: 15px;
     font-weight: 400;
     font-size: 100px;
     line-height: 100%;
@@ -18,8 +19,8 @@
 
 .capture-button {
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
+    width: 73px;
+    height: 73px;
     align-items: center;
     justify-content: center;
     padding: 0;
