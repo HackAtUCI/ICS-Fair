@@ -1,117 +1,20 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { Stage, Layer, Image, Transformer } from "react-konva";
+import { Stage, Layer, Image } from "react-konva";
 import useImage from "use-image";
 import { useNavigate } from "react-router-dom";
 import Konva from "konva";
+
+import CanvasImage, {
+  CanvasImageProps,
+} from "../../components/CanvasImage/CanvasImage.tsx";
+import IconButton from "../../components/IconButton/IconButton";
+
+import "./Canvas.css";
 
 const CANVAS_W = 800 * 0.8;
 const CANVAS_H = 450 * 0.8;
 const ACCENT_COLOR = "#BDB199";
 const BUTTON_DIAMETER = 48;
-
-interface CanvasImageProps {
-  id: number;
-  url: string;
-  x: number;
-  y: number;
-  rotation: number;
-  scale: number;
-  isSelected?: boolean;
-  onSelect?: () => void;
-}
-
-// Draggable canvas image component
-function CanvasImage(props: CanvasImageProps) {
-  const { url, isSelected, onSelect, x, y, rotation, scale } = props;
-  const [img] = useImage(url);
-  const shape = useRef<Konva.Image>(null);
-  const transformer = useRef<Konva.Transformer>(null);
-
-  useEffect(() => {
-    if (img && shape.current) {
-      shape.current.offsetX(img.width / 2);
-      shape.current.offsetY(img.height / 2);
-    }
-  }, [img]);
-
-  useEffect(() => {
-    if (isSelected && transformer.current && shape.current) {
-      transformer.current.nodes([shape.current]);
-      transformer.current.getLayer()?.batchDraw();
-    }
-  }, [isSelected]);
-
-  const handleClick = () => {
-    if (shape.current) {
-      shape.current.moveToTop();
-      shape.current.getLayer()?.batchDraw();
-    }
-    onSelect?.();
-  };
-
-  return (
-    <>
-      <Image
-        image={img}
-        x={x}
-        y={y}
-        rotation={rotation}
-        scaleX={scale}
-        scaleY={scale}
-        ref={shape}
-        draggable
-        onClick={handleClick}
-      />
-      {isSelected && (
-        <Transformer
-          ref={transformer}
-          rotateEnabled
-          enabledAnchors={[
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right",
-          ]}
-        />
-      )}
-    </>
-  );
-}
-
-// Button component that can be styled with images
-function IconButton({
-  src,
-  onClick,
-  title,
-}: {
-  src: string;
-  onClick?: () => void;
-  title?: string;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      title={title}
-      style={{
-        width: BUTTON_DIAMETER,
-        height: BUTTON_DIAMETER,
-        borderRadius: "50%",
-        background: ACCENT_COLOR,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        border: "none",
-        cursor: "pointer",
-      }}
-    >
-      <img
-        src={src}
-        alt=""
-        style={{ width: BUTTON_DIAMETER / 2, height: BUTTON_DIAMETER / 2 }}
-      />
-    </button>
-  );
-}
 
 export default function Canvas() {
   const navigate = useNavigate();
