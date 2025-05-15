@@ -7,6 +7,8 @@
   height: 100vh;
   width: 70vw;
   font-family: "Tiro Devanagari Hindi", sans-serif;
+  padding-top: 8rem;
+
 }
 
 .counter-wrapper {
@@ -27,7 +29,7 @@
 .counter-card {
   background-color: #bdb199;
   border-radius: 0.6rem;
-  padding: 5rem 6.25rem;
+  padding: 3.5rem 6.25rem;
   width: 70%;
   color: #48351c;
   align-items: center;
