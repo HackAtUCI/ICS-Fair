@@ -13,8 +13,6 @@ import "./Canvas.css";
 
 const CANVAS_W = 800 * 0.8;
 const CANVAS_H = 450 * 0.8;
-const ACCENT_COLOR = "#BDB199";
-const BUTTON_DIAMETER = 48;
 
 export default function Canvas() {
   const navigate = useNavigate();
@@ -82,37 +80,11 @@ export default function Canvas() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        gap: 40,
-        padding: 40,
-      }}
-    >
-      {/* Canvas */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h1 className="poster-title" style={{ margin: 0, marginBottom: 20 }}>
-          WANTED
-        </h1>
+    <div className="canvas-page">
+      <div className="canvas-wrapper">
+        <h1 className="poster-title">WANTED</h1>
 
-        <div
-          style={{
-            position: "relative",
-            display: "inline-block",
-            border: "2px solid #000",
-            padding: 10,
-            background: "#fff",
-          }}
-        >
+        <div className="canvas-frame">
           <Stage
             width={CANVAS_W}
             height={CANVAS_H}
@@ -145,15 +117,7 @@ export default function Canvas() {
             </Layer>
           </Stage>
 
-          {/* Center Button */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: -BUTTON_DIAMETER - 12,
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
+          <div className="canvas-btn--center">
             <IconButton
               src="/icons/retake_picture.svg"
               title="Retake Picture"
@@ -161,16 +125,7 @@ export default function Canvas() {
             />
           </div>
 
-          {/* Right Buttons */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: -BUTTON_DIAMETER - 12,
-              right: 0,
-              display: "flex",
-              gap: 16,
-            }}
-          >
+          <div className="canvas-btn--right">
             <IconButton
               src="/icons/preview.svg"
               title="Preview Wanted Poster"
@@ -189,19 +144,7 @@ export default function Canvas() {
         </div>
       </div>
 
-      {/* Sidebar */}
-      <div
-        style={{
-          background: ACCENT_COLOR,
-          borderRadius: 12,
-          padding: 20,
-          width: "15vw",
-          height: "80vh",
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-        }}
-      >
+      <div className="sidebar">
         {sidebarImages.map((src) => (
           <img
             key={src}
