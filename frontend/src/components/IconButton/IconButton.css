@@ -1,0 +1,15 @@
+.icon-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #bdb199;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+.icon-button img {
+  width: 24px;
+  height: 24px;
+}
