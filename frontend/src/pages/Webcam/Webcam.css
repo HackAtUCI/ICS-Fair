@@ -1,3 +1,9 @@
+.webcam-container {
+    height: 100vh
+}
+
+
+
 .webcam-video {
     width: 60vw;
     aspect-ratio: 16 / 9;

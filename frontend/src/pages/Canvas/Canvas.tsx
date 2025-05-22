@@ -9,7 +9,7 @@ export default function Canvas() {
   const navigate = useNavigate();
 
   const redoPhoto= () => {
-    navigate('/webcam');
+    navigate('/');
   }
 
 

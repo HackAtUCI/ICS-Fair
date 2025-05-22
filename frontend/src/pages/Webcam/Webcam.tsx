@@ -21,7 +21,7 @@ export default function Webcam() {
 
   return (
     <>
-      <div>
+      <div className='webcam'>
         <h1 className='header'>WANTED</h1>
         <Video
         audio={false}
