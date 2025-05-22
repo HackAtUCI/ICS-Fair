@@ -28,9 +28,8 @@ body {
   place-items: center;
   min-width: 20rem;
   min-height: 100vh;
-  font-family: 'Tiro Devanagari Hindi', serif;
-  color: #48351C;
-
+  font-family: "Tiro Devanagari Hindi", serif;
+  color: #48351c;
 }
 
 h1 {
@@ -71,7 +70,7 @@ button:focus-visible {
 }
 
 body {
-  background-image: url('/background.jpg');
+  background-image: url("/background.jpg");
   background-size: cover;
   margin: 0;
   display: flex;
