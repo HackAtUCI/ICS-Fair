@@ -9,8 +9,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Counter />} />
-        <Route path="/webcam" element={<Webcam />} />
+        {/* <Route path="/" element={<Counter />} /> */}
+        <Route path="/" element={<Webcam />} />
         <Route path="/canvas" element={<Canvas />} />
       </Routes>
     </BrowserRouter>
