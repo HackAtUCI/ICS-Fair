@@ -32,6 +32,7 @@ import CanvasImage, {
   CanvasImageProps,
 } from "../../components/CanvasImage/CanvasImage.tsx";
 import IconButton from "../../components/IconButton/IconButton";
+import PreviewModal from "../../components/PreviewModal/PreviewModal";
 
 import "./Canvas.css";
 
@@ -47,6 +48,8 @@ export default function Canvas() {
   const location = useLocation();
   const { photo } = location.state || {};
   const [photoImage] = useImage(photo || "");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewDataUrl, setPreviewDataUrl] = useState<string | null>(null);
 
   const sidebarImages = useMemo(() => {
     const imgs = import.meta.glob(
@@ -106,6 +109,14 @@ export default function Canvas() {
     });
   };
 
+  const handlePreview = () => {
+    if (canvas.current) {
+      const dataUrl = canvas.current.toDataURL();
+      setPreviewDataUrl(dataUrl);
+      setIsPreviewOpen(true);
+    }
+  };
+
   return (
     <div className="canvas-page">
       <div className="canvas-wrapper">
@@ -156,17 +167,9 @@ export default function Canvas() {
             <IconButton
               src="/icons/preview.svg"
               title="Preview Wanted Poster"
-              onClick={() => {
-                /* TODO: Open Preview Modal */
-              }}
+              onClick={handlePreview}
             />
-            <IconButton
-              src="/icons/export.svg"
-              title="Send Via Email"
-              onClick={() => {
-                /* TODO: Open Email Dialog */
-              }}
-            />
+            
           </div>
         </div>
       </div>
@@ -181,6 +184,12 @@ export default function Canvas() {
           />
         ))}
       </div>
+
+      <PreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        canvasDataUrl={previewDataUrl}
+      />
     </div>
   );
 }
