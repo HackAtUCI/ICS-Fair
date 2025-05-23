@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Counter from "./pages/Counter/Counter";
 import Webcam from "./pages/Webcam/Webcam";
 import Canvas from "./pages/Canvas/Canvas";
@@ -13,7 +13,7 @@ function AppContent() {
   const { bags: routeBags } = location.state || { bags: 0 };
 
   // Update bags state when route changes
-  useState(() => {
+  useEffect(() => {
     if (routeBags !== undefined) {
       setBags(routeBags);
     }
