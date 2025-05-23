@@ -1,7 +1,31 @@
+// import React from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import "./Canvas.css";
+
+// export default function Canvas() {
+//   const location = useLocation();
+//   const { photo } = location.state || {};
+//   const navigate = useNavigate();
+
+//   const redoPhoto = () => {
+//     navigate("/"); // Change this to /webcam
+//   };
+
+//   return (
+//     <div>
+//       <div>
+//         <h1 className="header">WANTED</h1>
+//         {photo && <img src={photo} alt="Captured photo" className="photo" />}
+//       </div>
+
+//       <button onClick={redoPhoto} className="capture-button">
+//         <img src="/redo-icon.png" alt="Redo photo" className="redo-icon" />
+//       </button>
+
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Stage, Layer, Image } from "react-konva";
 import useImage from "use-image";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Konva from "konva";
 
 import CanvasImage, {
@@ -20,6 +44,9 @@ export default function Canvas() {
   const [items, setItems] = useState<CanvasImageProps[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const canvas = useRef<Konva.Stage>(null);
+  const location = useLocation();
+  const { photo } = location.state || {};
+  const [photoImage] = useImage(photo || "");
 
   const sidebarImages = useMemo(() => {
     const imgs = import.meta.glob(
@@ -96,9 +123,9 @@ export default function Canvas() {
             }}
           >
             <Layer>
-              {bg && (
+              {photoImage && (
                 <Image
-                  image={bg}
+                  image={photoImage}
                   width={CANVAS_W}
                   height={CANVAS_H}
                   listening={false}
