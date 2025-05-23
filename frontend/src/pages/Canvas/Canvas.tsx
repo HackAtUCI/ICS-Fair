@@ -39,14 +39,17 @@ import "./Canvas.css";
 const CANVAS_W = 800 * 0.8;
 const CANVAS_H = 450 * 0.8;
 
-export default function Canvas() {
+interface CanvasProps {
+  bags: number;
+}
+
+export default function Canvas({ bags }: CanvasProps) {
   const navigate = useNavigate();
-  const [bg] = useImage("/canvas_bg.jpg");
   const [items, setItems] = useState<CanvasImageProps[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const canvas = useRef<Konva.Stage>(null);
   const location = useLocation();
-  const { photo } = location.state || {};
+  const { photo } = location.state || { photo: null };
   const [photoImage] = useImage(photo || "");
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewDataUrl, setPreviewDataUrl] = useState<string | null>(null);
@@ -169,7 +172,6 @@ export default function Canvas() {
               title="Preview Wanted Poster"
               onClick={handlePreview}
             />
-            
           </div>
         </div>
       </div>
@@ -189,6 +191,7 @@ export default function Canvas() {
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
         canvasDataUrl={previewDataUrl}
+        bags={bags}
       />
     </div>
   );

@@ -1,9 +1,11 @@
-import { useState } from "react";
 import "./Counter.css";
 
-export default function Counter() {
-  const [bags, setBags] = useState(0);
+interface CounterProps {
+  bags: number;
+  setBags: (bags: number) => void;
+}
 
+export default function Counter({ bags, setBags }: CounterProps) {
   const increment = () => setBags(bags + 1);
 
   const decrement = () => {

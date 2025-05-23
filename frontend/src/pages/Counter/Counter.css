@@ -8,7 +8,6 @@
   width: 70vw;
   font-family: "Tiro Devanagari Hindi", sans-serif;
   padding-top: 8rem;
-
 }
 
 .counter-wrapper {
@@ -91,6 +90,17 @@
 }
 
 .reset-button {
+  background-color: #bdb199;
+  color: #48351c;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 1;
+  height: 3.75rem;
+  width: 10rem;
+}
+
+.next-button {
   background-color: #bdb199;
   color: #48351c;
   font-weight: 400;

@@ -1,8 +1,13 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navbar() {
+interface NavbarProps {
+  bags: number;
+}
+
+export default function Navbar({ bags }: NavbarProps) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   let buttonText = "";
   let nextRoute = "";
@@ -14,11 +19,16 @@ export default function Navbar() {
     buttonText = "COUNTER";
     nextRoute = "/";
   }
+
+  const handleNavigation = () => {
+    navigate(nextRoute, { state: { bags } });
+  };
+
   return (
     <nav className="navbar">
-      <Link to={nextRoute} className="nav-button">
+      <button onClick={handleNavigation} className="nav-button">
         {buttonText}
-      </Link>
+      </button>
     </nav>
   );
 }

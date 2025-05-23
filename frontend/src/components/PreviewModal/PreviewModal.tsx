@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Stage, Layer, Image } from "react-konva";
+import { Stage, Layer, Image, Text } from "react-konva";
 import type Konva from "konva";
 import IconButton from "../IconButton/IconButton";
 import useImage from "use-image";
@@ -9,18 +9,19 @@ interface PreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
   canvasDataUrl: string | null;
+  bags: number;
 }
 
 export default function PreviewModal({
   isOpen,
   onClose,
   canvasDataUrl,
+  bags,
 }: PreviewModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const [posterImage] = useImage("/export_poster.png");
   const [previewImage] = useImage(canvasDataUrl || "");
-  const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +46,7 @@ export default function PreviewModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!stageRef.current || !email || isSubmitting) return;
+    if (!stageRef.current || isSubmitting) return;
 
     setIsSubmitting(true);
     setError(null);
@@ -54,29 +55,30 @@ export default function PreviewModal({
       // Get the full stage data URL
       const fullImageDataUrl = stageRef.current.toDataURL();
 
-      const response = await fetch(
-        "https://jivq5hqvog.execute-api.us-west-2.amazonaws.com/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            image: fullImageDataUrl,
-          }),
-        }
+      // Prompt for filename
+      const filename = prompt(
+        "Enter filename (without extension):",
+        "wanted-poster"
       );
-
-      if (!response.ok) {
-        throw new Error("Failed to send email");
+      if (!filename) {
+        setIsSubmitting(false);
+        return;
       }
 
-      // Clear form and close modal on success
-      setEmail("");
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = fullImageDataUrl;
+      link.download = `${filename}.png`;
+
+      // Append to body, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Close modal on success
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to send email");
+      setError(err instanceof Error ? err.message : "Failed to save image");
     } finally {
       setIsSubmitting(false);
     }
@@ -103,18 +105,18 @@ export default function PreviewModal({
               {previewImage && (
                 <Image
                   image={previewImage}
-                  width={window.innerWidth * 0.39}
+                  width={window.innerHeight * 0.6}
                   height={
-                    (window.innerWidth * 0.39 * previewImage.height) /
+                    (window.innerHeight * 0.6 * previewImage.height) /
                     previewImage.width
                   }
-                  x={(window.innerWidth - window.innerWidth * 0.44) / 2 + 40}
+                  x={(window.innerWidth - window.innerHeight * 0.6) / 2}
                   y={
                     (window.innerHeight -
-                      (window.innerWidth * 0.44 * previewImage.height) /
+                      (window.innerHeight * 0.6 * previewImage.height) /
                         previewImage.width) /
                       2 +
-                    67
+                    37
                   }
                 />
               )}
@@ -123,40 +125,54 @@ export default function PreviewModal({
               {posterImage && (
                 <Image
                   image={posterImage}
-                  width={window.innerWidth * 0.44}
+                  width={window.innerHeight * 0.64}
                   height={
-                    (window.innerWidth * 0.44 * posterImage.height) /
+                    (window.innerHeight * 0.64 * posterImage.height) /
                     posterImage.width
                   }
-                  x={(window.innerWidth - window.innerWidth * 0.44) / 2}
+                  x={(window.innerWidth - window.innerHeight * 0.64) / 2}
                   y={
                     (window.innerHeight -
-                      (window.innerWidth * 0.44 * posterImage.height) /
+                      (window.innerHeight * 0.64 * posterImage.height) /
                         posterImage.width) /
                     2
                   }
                 />
               )}
             </Layer>
+            <Layer>
+              <Text
+                text={`${bags} Bags`}
+                x={window.innerWidth / 2 - 100}
+                y={window.innerHeight - 140}
+                fontSize={38}
+                fontFamily="Tiro Devanagari Hindi"
+                fill="#48351c"
+                align="center"
+                width={200}
+              />
+              <Text
+                text={`$${(bags * 100000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                x={window.innerWidth / 2 - 100}
+                y={window.innerHeight - 100}
+                fontSize={38}
+                fontFamily="Tiro Devanagari Hindi"
+                fill="#48351c"
+                align="center"
+                width={200}
+              />
+            </Layer>
           </Stage>
-          <form onSubmit={handleSubmit} className="email-form">
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="email-input"
-              disabled={isSubmitting}
-            />
+          <div className="email-form">
             <IconButton
               src="/icons/export.svg"
-              title={isSubmitting ? "Sending..." : "Send Via Email"}
+              title={isSubmitting ? "Saving..." : "Save Image"}
               onClick={() =>
                 handleSubmit({ preventDefault: () => {} } as React.FormEvent)
               }
             />
             {error && <div className="error-message">{error}</div>}
-          </form>
+          </div>
         </div>
       </div>
     </div>
